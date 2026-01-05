@@ -1,6 +1,13 @@
 # Handwritten ML Derivations (classic Coursera ML)
 
-This repo is a **math-forward work sample**: handwritten derivations + implementation notes for core supervised learning and neural networks.
+The purpose of this repository is to show that I can do math in a high level way, successfully navigating advanced math concepts in linear algebra, statistics, and calculus.
+
+It contains full handwritten derivations I completed while studying classic ML fundamentals (linear/logistic regression, regularization, multiclass, neural networks) back in 2018. Wherever the professor Andrew Ng left steps “as an exercise,” I wrote the complete demonstration—especially around MLE/log-loss gradients, sigmoid derivatives, and backprop dimensions bookkeeping.
+
+**What this signals (beyond “took a course”):**
+- Comfort with **linear algebra + calculus** in the service of implementation (matrix form, dimensions, chain rule)
+- A correctness mindset: **numerical sanity checks**, shape constraints, bias-unit edge cases
+- Independent self-study discipline: reconstructing core results instead of memorizing them
 
 The point is not “I watched a course.” The point is: **I can reconstruct the machinery**—derive gradients, reason in matrix form, sanity-check with numerical approximations, and keep implementations honest with shape checks.
 
@@ -107,12 +114,12 @@ This index is designed for a recruiter or engineer to jump straight to “proof 
 
 ## Rigor note (why these aren’t “just notes”)
 
-I explicitly wrote out **all formula demonstrations that the professor left as exercises**—full symbolic steps, not hand-wavy intuition.
+I explicitly wrote out **most formula demonstrations that the professor left as exercises**—full symbolic steps, not hand-wavy intuition.
 
-Recurring “advanced-math-ish” signals you’ll notice:
+Recurring advanced-math signals you’ll notice:
 
 - gradients derived from the objective (not copied),
-- careful vector/matrix shape tracking (prevents silent bugs),
+- careful vector/matrix shape tracking,
 - chain-rule bookkeeping through multi-layer networks,
 - numerical gradient checking to validate analytic gradients,
 - explicit bias/variance diagnosis patterns.
