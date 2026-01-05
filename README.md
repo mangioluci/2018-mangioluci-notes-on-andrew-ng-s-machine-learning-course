@@ -16,39 +16,59 @@ The point is not “I watched a course.” The point is: **I can reconstruct the
 
 ## Fast proof (2-minute skim)
 
-If you read only ~5 minutes of this repo, read these four pages in order.  
-They show the full pipeline: **vectorized forward pass → vectorized inference → multiclass shape discipline → backprop math + derivative rigor**.
-
-> Note on authorship: **p-24 contains my full derivations (including the “exercise left to the student” steps).**  
-> The backprop algorithm on p-23 is included as context for the derivations on p-24.
+If you read only ~5 minutes of this repo, read these pages.  
+They show the full pipeline: **objective → gradient → vectorization → backprop mechanics → shape-safety**.
 
 ---
 
-### 1) Neural network forward propagation, vectorized (setup + weight semantics)
-**Why it matters:** Correct \(\Theta^{(l)}\) semantics + bias handling is where implementations quietly go wrong.
+### 1) p-08 — Logistic regression gradient (MLE → clean GD update) **(my derivation)**
+**Why it matters:** This is the canonical “hard step” in early ML: taking the MLE/log-loss objective and collapsing the derivative into the clean residual form  
+\(\frac{\partial J(\theta)}{\partial \theta_j} = \frac{1}{m}\sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)}\), which is exactly what enables vectorized training.
 
-![Neural net forward propagation (vectorized)](pages-11-20/mangioluci-s-notes-p-14.pdf)
-
----
-
-### 2) One-vs-all inference, vectorized (probabilities → argmax)
-**Why it matters:** Shows the bridge from equations to working prediction code (shape-aware, batch-friendly).
-
-![One-vs-all prediction (vectorized argmax)](pages-11-20/mangioluci-s-notes-p-18.pdf)
+![p-08 — logreg gradient from MLE](assets/fastproof_p08_logreg_mle_gradient.jpg)  
+[Open PDF](pages-1-10/mangioluci-s-notes-p-08.pdf)
 
 ---
 
-### 3) Multiclass formulation as linear algebra (\(h(x)\in\mathbb{R}^K\), \(Y\in\mathbb{R}^{m\times K}\))
-**Why it matters:** Demonstrates tensor/shape thinking—turning “K-class classification” into matrices you can actually compute with.
+### 2) p-23 — Backprop algorithm (setup/context for p-24; not my derivation)
+**Why it matters:** This page captures the algorithmic skeleton: \(\delta\) definitions, recursion, and the accumulator loop.  
+I’m including it because p-24’s derivations “cash out” these rules (and because many implementations fail when this scaffold is misunderstood).
 
-![Multiclass shapes and one-hot encoding](pages-21-30/mangioluci-s-notes-p-20.pdf)
+![p-23 — backprop algorithm scaffold](assets/fastproof_p23_backprop_algorithm_scaffold.jpg)  
+[Open PDF](pages-21-30/mangioluci-s-notes-p-23.pdf)
 
 ---
 
-### 4) Backprop rigor: sigmoid derivative + dimensional analysis + bias-unit caveats (**my derivation**)
-**Why it matters:** This is the “engine room”: chain rule mechanics, \(g'(z)=g(z)(1-g(z))\), and explicit dimension checks that prevent subtle training bugs.
+### 3) p-24 — Backprop rigor: Sigmoid derivative + dimensional analysis + bias-unit caveats **(my derivation)**
+**Why it matters:** This is where I did the non-handwavy work: derive \(g'(z)=g(z)(1-g(z))\), track shapes through backprop, and explicitly note the bias-unit exceptions that break naïve implementations.
 
-![Sigmoid derivative + backprop dimensional analysis (my derivation)](pages-21-30/mangioluci-s-notes-p-24.pdf)
+![p-24 — sigmoid derivative + dimensional analysis](assets/fastproof_p24_sigmoid_derivative_shapes_bias.jpg)  
+[Open PDF](pages-21-30/mangioluci-s-notes-p-24.pdf)
+
+---
+
+### 4) p-20 — Multiclass as linear algebra (\(h(x)\in\mathbb{R}^K\), \(Y\in\mathbb{R}^{m\times K}\))
+**Why it matters:** Shows “tensor thinking”: turning K-class classification into matrices you can compute with (and debug).
+
+![p-20 — multiclass shapes + one-hot](assets/fastproof_p20_multiclass_shapes_onehot.jpg)  
+[Open PDF](pages-21-30/mangioluci-s-notes-p-20.pdf)
+
+---
+
+### 5) p-18 — One-vs-all inference, vectorized (probabilities → argmax)
+**Why it matters:** Bridges math → implementation: batch probabilities, argmax selection, and shape correctness.
+
+![p-18 — one-vs-all prediction (vectorized)](assets/fastproof_p18_one_vs_all_argmax.jpg)  
+[Open PDF](pages-11-20/mangioluci-s-notes-p-18.pdf)
+
+---
+
+### 6) p-14 — NN forward propagation, vectorized (weight-matrix semantics)
+**Why it matters:** Forward-prop correctness (especially \(\Theta^{(l)}\) semantics + bias handling) prevents silent errors upstream of training.
+
+![p-14 — forward propagation vectorized](assets/fastproof_p14_forwardprop_vectorized_theta_semantics.jpg)  
+[Open PDF](pages-11-20/mangioluci-s-notes-p-14.pdf)
+
 
 ---
 
@@ -102,8 +122,8 @@ Recurring “advanced-math-ish” signals you’ll notice:
 ## How to browse quickly
 
 1) Start with **Fast proof (2-minute skim)** above.
-2) Jump to the **Index** row that matches what you care about (e.g., “regularized logistic gradient”).
-3) Open the corresponding per-page PDFs (e.g., `pages-11-20/mangioluci-s-notes-p-13.pdf`).
+2) Jump to the **Index** row that matches what you care about.
+3) Open the corresponding per-page PDFs.
 
 ---
 
